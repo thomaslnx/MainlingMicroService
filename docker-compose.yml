@@ -1,0 +1,59 @@
+version: '3'
+services:
+  user-register:
+    # container_name: nest-app-microservice-challenge
+    image: nestjs-api-dev:1.0.0
+    build:
+      context: .
+      target: development
+      dockerfile: ./apps/user-register/Dockerfile
+    command: npm run start:dev user-register
+    env_file:
+      - ./apps/user-register/.env
+    ports:
+      - 3000:3000
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/src/
+      - /src/node_modules
+    restart: always
+
+  mailing:
+    # container_name: nest-app-microservice-challenge
+    image: nestjs-api-dev:1.0.0
+    build:
+      context: .
+      target: development
+      dockerfile: ./apps/mailing/Dockerfile
+    command: npm run start:dev mailing
+    env_file:
+      - ./apps/mailing/.env
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/src/
+      - /src/node_modules
+    restart: always
+  
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    volumes:
+      - ./database:/data/db
+    ports:
+      - 27017:27017
+    restart: always
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    env_file:
+      - ./rabbitmq.env
+    volumes:
+      - ./rabbitmq/data/:/var/lib/rabbitmq
+      - ./rabbitmq/log/:/var/log/rabbitmq
+    restart: always

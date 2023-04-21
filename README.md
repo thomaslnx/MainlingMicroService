@@ -7,66 +7,81 @@
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
     <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+
+<p align="center">
+  <img src="readmeAssets/screen.png" width="80%" alt="Nest Logo" /></a>
 </p>
+
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This little project aimed to show my abilities with backend development. In this project, I used NestJS, Typescript, Docker and Docker-Compose, MongoDB, Mongoose, MailTrap, and Handlebars to style and format minimal email templates, and microservices approach using RabbitMQ as a message broker to make the communication between these two services and to handle notification email sending after users creation.
 
-## Installation
+## Note:
+
+How this project is a fully dockerized backend application, there's no need to install anything on the test machine, just rebuild the docker containers.
+
+## Building the containerized services
+
+After unzipping the project folder run the following docker command inside the project's folder:
 
 ```bash
-$ npm install
+$ docker-compose up --build -V
 ```
 
-## Running the app
+This command will build the services inside the docker-compose file and start them:
+
+## Testing the App
+
+To test the app is necessary to use Postman or other tool to test the API endpoints. The following are the endpoint of the application:
+
+List all users from API: GET http://locahost:3000/users;
+<br/>
+Get one user based on his id: GET http://localhost:3000/users/{id};
+<br/>
+Create a new user and send a confirmation email: POST http://localhost:3000/users,
+
+
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
+# API routes
+GET http://locahost:3000/users
+GET http://localhost:3000/users/{id}
+POST http://localhost:3000/users
 
 # production mode
 $ npm run start:prod
 ```
 
-## Test
+this last route needs a JSON body with the shape:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# JSON body for the POST request
+{
+  "email": example email;
+  "first_name": example first name;
+  "last_name":  example last name;
+  "avatar": "https://reqres.in/img/faces/7-image.jpg"
+}
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Obs: the email sent after the new user creation it's using my personal Mail Trap account to test the sends. You can do tests about it using your own account, for this get to ```apps -> mailing -> src -> mailing.module.ts``` and set your own user and password from MailTrap inside the auth object.
+```bash
+auth: {
+        user: '##############',
+        pass: '##############'
+      }
+```
+## Final words
+I hope that I could show you that I can work with your stack and technologies, and besides that, I'm always open to learning new things and keeping myself updated and sharped about my daily work technologies. Thanks for your attention and consideration. In case of some doubt, technical issue, or more information, please do not hesitate to contact me. I'll hope to hear you about this.
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - Marcos de Moura Silva
+- Github - [thomaslnx](https://github.com/thomaslnx)
+- Twitter - [@thomaslnx](https://twitter.com/thomaslnx)
 
 ## License
 
